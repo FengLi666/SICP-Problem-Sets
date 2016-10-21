@@ -9,7 +9,7 @@
 )
 
 (define (monte-carlo trails experiment)
-	(define (iter trails-remaining trails-passed);我日，多加了一对括号让我找了半小时
+	(define (iter trails-remaining trails-passed)
 		(cond 									
 			((= trails-remaining 0) (/ trails-passed trails))
 			((experiment) (iter (- trails-remaining 1) (+ trails-passed 1)))
@@ -67,3 +67,4 @@
 		)
 	)
 )
+

@@ -49,14 +49,13 @@
 	(define (password-incorrect)
 		(set! incorrect-times (+ incorrect-times 1))
 		(if (< incorrect-times 7)	
-		 	(display "INCORRECT PASSWORD")		
+			(display "INCORRECT PASSWORD")		
 			(display "COPS IS COMING")						
 		)
 	)
 
 	dispatch
 )
-
 
 
 
