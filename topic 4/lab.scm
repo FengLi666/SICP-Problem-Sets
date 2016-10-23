@@ -60,6 +60,10 @@
     'ok
 )
 
+(define (make-define variable value) 
+    (list 'define varible value)
+)
+
 (define (eval-if exp env)
     (if (true? (eval (if-predicate exp) env))
         (eval (if-consequent exp) env)

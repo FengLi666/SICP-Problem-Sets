@@ -14,12 +14,16 @@
                     )
                 )
                 (if (eq? (cadr first) '=>')
-                    (make-if 
-                        (cond-predicate first)
-                        ((cond-actions first)
-                            (cond-predicate first)
+                    (let ((test (cond-predicate first)))
+                        (make-if 
+                            test
+                            (lambda ()  ;延时求值，避免test为假时计算出现错误
+                                ((cond-actions first)
+                                        test
+                                )
+                            )
+                            (expand-clauses rest)
                         )
-                        (expand-clauses rest)
                     )
                     (make-if 
                         (cond-predicate first)
@@ -31,7 +35,6 @@
         )
     )
 )
-
 
 
 
