@@ -1,0 +1,68 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+int count;
+int find(int x,int s[])
+{
+    if(s[x]<=0)
+        return x;
+    else return s[x] = find(s[x], s);
+}
+void union(int a1, int a2, int s[])
+{
+    int root1 = find(a1, s);
+    int root2 = find(a2, s);
+    if(root1!=root2)
+    {
+        if(s[root2] < s[root1])
+        {
+            s[root2]+=s[root1];
+            s[root1] = root2;
+            count--;
+        }
+        else
+        {
+            s[root1]+=s[root2];
+            s[root2] = root1;
+            count--;
+        }
+    }
+}
+void init(int s[],int n)
+{
+    for(int i=1;i<n+1;i++)
+    {
+        s[i] = -1;
+    }
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    count = n;
+    int *s = new int[n];
+    init(s,n);
+    char ch;
+    cin>>ch;
+    while(ch!='S')
+    {
+        int x,y;
+        cin>>x>>y;
+        if(ch == 'C')
+        {
+            if(find(x,s) == find(y,s))
+                 printf("yes\n");
+            else printf("no\n");
+        }
+        else if(ch == 'I')
+        {
+            union(x, y, s);
+        }
+        cin>>ch;
+    }
+    if(count == 1) printf("The network is connected.\n");
+    else printf("There are %d components.\n",count);
+    return 0;
+}
